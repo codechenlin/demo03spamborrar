@@ -8,7 +8,7 @@ services:
     ports:
       - "783:783"
     volumes:
-      - ./spamassassin/local.cf:/etc/spamassassin/local.cf:ro
+      - ./spamassassin:/etc/spamassassin
       - ./spamassassin/rules:/var/lib/spamassassin
     environment:
       # Si la imagen soporta actualizaciones automáticas de reglas, se harán internamente
