@@ -1,0 +1,4 @@
+# Regla personalizada: marcar como spam si el asunto contiene "FREE MONEY"
+header   MY_RULE_SUBJECT_FREE_MONEY   Subject =~ /FREE MONEY/i
+describe MY_RULE_SUBJECT_FREE_MONEY   Detecta correos con "FREE MONEY" en el asunto
+score    MY_RULE_SUBJECT_FREE_MONEY   3.0
