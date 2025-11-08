@@ -1,0 +1,47 @@
+version: "3.8"
+
+services:
+  spamd:
+    image: grepular/spamassassin:4.0
+    container_name: spamd
+    # Exponer 783 solo a la red interna
+    ports:
+      - "783:783"
+    volumes:
+      - ./spamassassin/local.cf:/etc/spamassassin/local.cf:ro
+      - ./spamassassin/rules:/var/lib/spamassassin
+    environment:
+      # Si la imagen soporta actualizaciones automáticas de reglas, se harán internamente
+      TZ: America/Mexico_City
+    networks:
+      - internal
+    restart: always
+
+  spamassassin-api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: spamassassin-api
+    ports:
+      - "8080:8080"
+    environment:
+      API_KEY: ${API_KEY}
+      MAX_CONCURRENCY: ${MAX_CONCURRENCY}
+      SPAMD_HOST: spamd
+      SPAMD_PORT: "783"
+      # Opcional: integra tu ClamAV externo (ya lo tienes instalado en otro servidor)
+      CLAMAV_HOST: ${CLAMAV_HOST}
+      CLAMAV_PORT: ${CLAMAV_PORT}
+      ENABLE_CLAMAV: ${ENABLE_CLAMAV}
+      DEFAULT_SENSITIVITY: "5.0"
+      REQUEST_TIMEOUT_MS: "12000"
+      LOG_LEVEL: "info"
+    depends_on:
+      - spamd
+    networks:
+      - internal
+    restart: always
+
+networks:
+  internal:
+    driver: bridge
