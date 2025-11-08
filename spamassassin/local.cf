@@ -1,0 +1,11 @@
+# Configuración base; el umbral dinámico vendrá por solicitud y sobrescribirá el 'required_score'
+# pero tener un default es útil.
+required_score 5.0
+report_safe 0
+use_bayes 1
+bayes_auto_learn 1
+# Ajustes comunes; añade tus propias reglas en ./spamassassin/rules/
+skip_rbl_checks 0
+use_razor2 0
+use_pyzor 0
+use_dcc 0
