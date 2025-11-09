@@ -3,7 +3,7 @@ import socket
 
 ENABLE_CLAMAV = os.getenv("ENABLE_CLAMAV", "false").lower() == "true"
 CLAMAV_HOST = os.getenv("CLAMAV_HOST", "localhost")
-CLAMAV_PORT = int(os.getenv("CLAMAV_PORT", "3310"))
+CLAMAV_PORT = int(os.getenv("CLAMAV_PORT") or "3310")
 
 def scan_raw_mime_with_clamd(raw_mime: str) -> bool:
     """
