@@ -4,16 +4,9 @@ services:
   spamd:
     image: grepular/spamassassin:4.0
     container_name: spamd
-    # Exponer 783 solo a la red interna
     ports:
       - "783:783"
-    volumes:
-      # 1) Monta SOLO el archivo local.cf (no montes el directorio /etc/spamassassin completo)
-      - ./spamassassin/local.cf:/etc/spamassassin/local.cf:ro
-      # 2) Monta tus reglas personalizadas en /var/lib/spamassassin/rules (carpeta separada)
-      - ./spamassassin/rules:/var/lib/spamassassin/rules
     environment:
-      # Si la imagen soporta actualizaciones automáticas de reglas, se harán internamente
       TZ: America/Mexico_City
     networks:
       - internal
