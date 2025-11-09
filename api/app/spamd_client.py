@@ -70,8 +70,8 @@ def process_with_spamd(raw_mime: str, threshold: float) -> Tuple[float, float, D
         while True:
             chunk = s.recv(65536)
             if not chunk:
-                break
-            chunks.append(chunk)
+                break   # salir cuando no hay más datos
+        chunks.append(chunk)
         data = b"".join(chunks)
         score, applied_threshold, headers, details = _parse_spamd_response(data)
         return score, applied_threshold, headers, details
