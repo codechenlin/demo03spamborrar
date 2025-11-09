@@ -29,7 +29,7 @@ services:
       CLAMAV_PORT: ${CLAMAV_PORT}
       ENABLE_CLAMAV: ${ENABLE_CLAMAV}
       DEFAULT_SENSITIVITY: "5.0"
-      REQUEST_TIMEOUT_MS: "12000"
+      REQUEST_TIMEOUT_MS: "90000"
       LOG_LEVEL: "info"
     depends_on:
       - spamd
